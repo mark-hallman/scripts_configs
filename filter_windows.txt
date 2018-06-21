@@ -1,3 +1,4 @@
+# Version 1.0.0 MRH
 # Filter file for log2timeline for triaging Windows systems.
 #
 # This file can be used by image_export or log2timeline to selectively export
@@ -27,32 +28,67 @@
 /RECYCLER
 /RECYCLER/.+
 /RECYCLER/.+/.+
+
 # Windows Registry hives.
 /(Users|Documents And Settings)/.+/NTUSER[.]DAT
+/(Users|Documents And Settings)/.+/ntuser[.]DAT[.](LOG1|LOG2|LOG3)
 /Users/.+/AppData/Local/Microsoft/Windows/Usrclass[.]dat
-/Documents And Settings/.+/Local Settings/Application Data/Microsoft/Windows/Usrclass[.]dat
+/Users/.+/AppData/Local/Microsoft/Windows/Usrclass[.]DAT[.](LOG|LOG1|LOG2|LOG3)
 # {sysregistry} points to the location that contains the system hives,
 # eg: \Windows\System32\config.
-{sysregistry}/(SAM|SOFTWARE|SECURITY|SYSTEM)
+# {sysregistry}/(SAM|SOFTWARE|SECURITY|SYSTEM)
+/Windows/System32/config/(SAM|SOFTWARE|SECURITY|SYSTEM)
+/Windows/System32/config/(SAM[.]LOG[1-9]|SOFTWARE[.]LOG[1-9]|SECURITY[.]LOG[1-9]|SYSTEM[.]LOG[1-9])
+
 # Recent file activity.
 /Users/.+/AppData/Roaming/Microsoft/Windows/Recent/.+[.]LNK
 /Users/.+/AppData/Roaming/Microsoft/Office/Recent/.+[.]LNK
+/Users/.+/Desktop/.+[.]LNK
 /Documents And Settings/.+/Recent/.+[.]LNK
 /Users/.+/AppData/Roaming/Microsoft/Windows/Recent/Automaticdestinations/.+[.]automaticDestinations-ms
 /Users/.+/AppData/Roaming/Microsoft/Windows/Recent/Customdestinations/.+[.].customDestinations-ms
-# Windows Event Logs.
-{systemroot}/winevt/Logs/.+[.]evtx
-{systemroot}/config/.+[.]evt
+/Users/.+/AppData/Local/ConnectedDevicesPlatform/L.User/ActivitiesCache.db
+
+# Email - currently only Outlook
+/(Users|Documents And Settings)/.+/AppData/Local/Microsoft/Outlook/.+[.](ost|pst)
+
+# Windows Event Logs
+# {systemroot}/winevt/Logs/.+[.]evtx
+# {systemroot}/config/.+[.]evt
+/Windows/System32/winevt/Logs/.+[.]evtx
+/Windows/System32/config/.+[.]evt
+
+# Windows Event Trace Logs (ETL)
+/Windows/System32/WDI/LogFiles/.+[.]etl
+/Windows/System32/LogFles/WMI/.+[.]etl
+/Windows/System32/LogFles/WMI/RtBackup/.+[.]etl
+/Windows/System32/SleepStudy/.+[.]etl
+
+
 # Various log files.
-{windir}/inf/setupapi[.].+[.]log
-{windir}/setupapi.log
-{windir}/System32/LogFiles/.+/.+[.]txt
+# {windir}/inf/setupapi[.].+[.]log
+# {windir}/setupapi.log
+# {windir}/System32/LogFiles/.+/.+[.]txt
+/Windows/inf/setupapi[.].+[.]log
+/Windows/setupapi.log
+/Windows/System32/LogFiles/.+/.+[.]txt
+
 # Windows Artifacts.
-{windir}/Tasks/.+[.]job
-{windir}/Appcompat/Programs/Recentfilecache[.]bcf
-{windir}/Appcompat/Programs/AMcache[.]hve
+# {windir}/Tasks/.+[.]job
+# {windir}/Appcompat/Programs/Recentfilecache[.]bcf
+# {windir}/Appcompat/Programs/AMcache[.]hve
+/Windows/Tasks/.+[.]job
+/Windows/Appcompat/Programs/Recentfilecache[.]bcf
+/Windows/Appcompat/Programs/AMcache[.]hve
+/Windows/appcompat/Programs/AMcache[.]hve[.]LOG[1-9]
+
+# Windows Search Index
+/programdata/microsoft/search/data/applications/windows/Windows.edb
+
 # Prefetch files.
-{windir}/Prefetch/.+[.]pf
+# {windir}/Prefetch/.+[.]pf
+/Windows/Prefetch/.+[.]pf
+
 # Browser history artifacts.
 /Users/.+/AppData/Local/Microsoft/Windows/History/History.IE5/index[.]dat
 /Users/.+/AppData/Local/Microsoft/Windows/History/History.IE5/MSHist.+/index[.]dat
