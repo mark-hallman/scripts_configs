@@ -88,6 +88,7 @@
 # Prefetch files.
 # {windir}/Prefetch/.+[.]pf
 /Windows/Prefetch/.+[.]pf
+/Users/User/AppData/Local/ConnectedDevicesPlatform/L.User/ActivitiesCache.db
 
 # Browser history artifacts.
 /Users/.+/AppData/Local/Microsoft/Windows/History/History.IE5/index[.]dat
